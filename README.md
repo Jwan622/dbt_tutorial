@@ -1,6 +1,6 @@
 This is the code repo for the dbt tutorial at https://www.startdataengineering.com/post/dbt-data-build-tool-tutorial
 
-I followed along
+I followed along and my notes are on the bottom\
 -Jeff Wan
 
 ### Prerequisites
@@ -70,3 +70,19 @@ The `stg_eltool__customers` model requires snapshots.customers_snapshot model. B
 
 Our staging and marketing models are as materialized views, and the two core models are materialized as tables.
 
+
+When we run:
+```
+COPY warehouse.customers(customer_id, zipcode, city, state_code, datetime_created, datetime_updated)
+FROM '/input_data/customer_new.csv' DELIMITER ',' CSV HEADER;
+```
+
+that copies input data from that csv and causes dbt to create a new row in the snapshots model when you run `dbt snapshots`:
+```bash
+dbt@localhost:dbt> select * from snapshots.customers_snapshot where customer_id = 83;
++---------------+-----------+-----------+--------------+---------------------+---------------------+----------------------------------+---------------------+---------------------+---------------------+
+| customer_id   | zipcode   | city      | state_code   | datetime_created    | datetime_updated    | dbt_scd_id                       | dbt_updated_at      | dbt_valid_from      | dbt_valid_to        |
+|---------------+-----------+-----------+--------------+---------------------+---------------------+----------------------------------+---------------------+---------------------+---------------------|
+| 83            | 04548     | sao paulo | SP           | 2017-10-18 00:00:00 | 2017-10-18 00:00:00 | 33bd3f9d04b5fc38fa679f8fc34ca3b5 | 2017-10-18 00:00:00 | 2017-10-18 00:00:00 | 2017-10-18 01:20:00 |
+| 83            | 24120     | niteroi   | RJ           | 2017-10-18 00:00:00 | 2017-10-18 01:20:00 | 2a0076283bfc6b53a8fca323c95732e9 | 2017-10-18 01:20:00 | 2017-10-18 01:20:00 | <null>              |
+```
