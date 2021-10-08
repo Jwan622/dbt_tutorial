@@ -1,4 +1,7 @@
-This is the code repo for dbt tutorial at https://www.startdataengineering.com/post/dbt-data-build-tool-tutorial
+This is the code repo for the dbt tutorial at https://www.startdataengineering.com/post/dbt-data-build-tool-tutorial
+
+I followed along
+-Jeff Wan
 
 ### Prerequisites
 
