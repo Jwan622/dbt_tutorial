@@ -60,3 +60,13 @@ select * from warehouse.customer_orders limit 3;
 cd ..
 docker compose down
 ```
+
+#### Other notes by Jeff Wan
+Notice a file named `stg_eltool__customers.sql` in `sde_dbt_tutorial/models/staging`. If you used airflow to EL, then it'd be named `stg_airflow__customers.sql`
+
+Notice a marekting models folder where models are created in the postgres database that are the result of joining two tables. We can define the models for sa the marketing department's end users. A project can have multiple business verticals. Having one folder per business vertical provides an easy way to organize the models.
+
+The `stg_eltool__customers` model requires snapshots.customers_snapshot model. But snapshots are not created on dbt run ,so we run dbt snapshot first.
+
+Our staging and marketing models are as materialized views, and the two core models are materialized as tables.
+
